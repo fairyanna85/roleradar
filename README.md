@@ -1,10 +1,11 @@
 # RoleRadar — never miss the role you were meant for
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/fairyanna85/roleradar?style=social)](https://github.com/fairyanna85/roleradar/stargazers)
+
 **[See the full pitch page →](https://fairyanna85.github.io/roleradar/README.html)**
 
-A self-improving AI job scan, built with Muse. It hunts roles across company boards,
-keyword searches, your inbox, and the people who post the jobs worth having.
-It scores every match against what *you* care about. Then it gets better at it every week.
+An AI job-search agent that hunts roles across company boards, keyword searches, your inbox, and the people who post the jobs worth having. Built with Muse, it scores every match against what *you* care about — then gets better at it every week.
 
 You make one call per role: in or out.
 
