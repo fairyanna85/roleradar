@@ -29,7 +29,7 @@
                radial-gradient(800px 420px at 82% 30%,rgba(232,184,75,.08),transparent 60%),var(--bg)}
   .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:.24em;color:var(--gold);font-weight:600;margin-bottom:26px}
   .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold);display:inline-block}
-  h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,7.2vw,88px);line-height:1.04;letter-spacing:-.01em;max-width:16ch}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,8.5vw,88px);line-height:1.04;letter-spacing:-.01em;max-width:16ch}
   h1 em{font-style:italic;color:var(--gold)}
   .lede{margin-top:28px;max-width:60ch}
   .lede p{font-size:clamp(17px,2.2vw,20px);color:var(--ink2);margin-bottom:14px}
@@ -89,6 +89,8 @@
   footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13.5px}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   @media(max-width:860px){
+    .eyebrow{display:block;font-size:11px;letter-spacing:.16em;line-height:1.8}
+    .eyebrow::before{display:block;width:32px;margin:0 0 12px}
     .feat{grid-template-columns:1fr;gap:40px}
     .feat.flip>.shot{order:0}
     .cards{grid-template-columns:1fr}
