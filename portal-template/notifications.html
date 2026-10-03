@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 RoleRadar — Notification prototypes</title>
+<!--
+  NOTIFICATION MESSAGE SHAPES — visual prototype for TDD §6.5.
+  Fictional demo content. The builder LLM uses the shapes in §6.5 as the
+  normative spec; this file just shows what they look like in the thread.
+
+  Card anatomy (every notification):
+    eyebrow  → RoleRadar · time (· detected from email)
+    headline → emoji + event + title @ company
+    score    → chip, color by tier (the visual anchor)
+    context  → one muted line, never a paragraph
+    action   → exactly one verb-first tap
+    quiet    → portal link, bottom-right, muted
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#050912; --ink:#E8EDF7; --ink-2:#BCC6D8; --muted:#8490A7;
+    --accent:#5B9DFF; --accent-ink:#DCE9FF;
+    --green:#4CCB9E; --gold:#E5B453; --red:#EE7474;
+    --line:rgba(255,255,255,.08);
+    --bubble:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+    --serif:"Bodoni Moda","Didot",serif;
+    --sans:"Hanken Grotesk",-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+       font-size:15px; line-height:1.5;}
+  .demo-banner{background:#2a2103; border-bottom:1px solid #5a4a12; color:#e5c86a;
+               font-size:12.5px; padding:8px 16px;}
+  .thread{max-width:520px; margin:0 auto; padding:18px 14px 60px;}
+  .thread-head{text-align:center; margin-bottom:20px;}
+  .thread-head h1{font-family:var(--serif); font-size:24px; margin:0;}
+  .thread-head .sub{color:var(--muted); font-size:12.5px; margin-top:4px;}
+  .day{text-align:center; color:var(--muted); font-size:12px; margin:22px 0 10px;}
+
+  /* ---- card ---- */
+  .msg{position:relative; background:var(--bubble); border:1px solid var(--line);
+        border-radius:4px 16px 16px 16px; padding:14px 16px; margin-bottom:10px; max-width:94%;}
+  .msg:has(.plink){padding-bottom:36px;}
+  .t{font-size:11px; letter-spacing:.04em; color:var(--muted); margin-bottom:8px; text-transform:uppercase;}
+  .t .src{color:var(--gold);}
+  .lead{font-weight:700; font-size:16px; margin:0 0 10px;}
+  .ctx{color:var(--muted); font-size:13.5px; margin:6px 0 0;}
+
+  /* ---- score chip: the visual anchor ---- */
+  .score{display:inline-block; min-width:46px; text-align:center; font-weight:700; font-size:13px;
+         border-radius:8px; padding:3px 9px; margin-right:9px; vertical-align:1px;}
+  .score.hi{background:rgba(76,203,158,.15); color:#7FE3B8; border:1px solid rgba(76,203,158,.45);}
+  .score.mid{background:rgba(91,157,255,.13); color:#9DC2FF; border:1px solid rgba(91,157,255,.4);}
+  .score.lo{background:rgba(255,255,255,.05); color:var(--ink-2); border:1px solid var(--line);}
+
+  /* ---- dream-vector hero ---- */
+  .dv-hero{border:1px solid rgba(229,180,83,.4); border-radius:12px; padding:12px 14px; margin:10px 0;
+           background:linear-gradient(180deg, rgba(229,180,83,.09), rgba(229,180,83,.02));}
+  .dv-tag{font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--gold); margin-bottom:8px;}
+  .dv-hero p{margin:0;}
+
+  /* ---- ranked rows ---- */
+  .rank{display:flex; align-items:baseline; padding:7px 0; border-top:1px solid var(--line);}
+  .rank:first-of-type{border-top:none;}
+  .rank .why{display:block; color:var(--muted); font-size:13px; margin:2px 0 0 55px;}
+
+  /* ---- the one tap ---- */
+  .tap{display:inline-block; margin-top:12px; background:rgba(91,157,255,.16);
+        border:1px solid rgba(130,180,255,.45); color:var(--accent-ink);
+        border-radius:12px; padding:10px 18px; font-size:14px; font-weight:700; cursor:pointer;}
+  .tap:hover{background:rgba(91,157,255,.24);}
+  .tap .arr{margin-left:6px;}
+
+  /* ---- quiet portal link ---- */
+  .plink{position:absolute; right:16px; bottom:11px; font-size:12.5px;}
+  .plink a{color:var(--muted); text-decoration:none; font-weight:500;}
+  .plink a:hover{color:var(--accent);}
+
+  /* ---- flat states ---- */
+  .flat{border-left:3px solid var(--line);}
+  .flat p{margin:0; color:var(--muted);}
+  .quiet-line{color:var(--muted); font-style:italic; margin:0;}
+
+  .cap{font-size:12px; color:var(--muted); margin:-2px 0 20px; max-width:94%;}
+  .cap b{color:var(--ink-2);}
+</style>
+</head>
+<body>
+<div class="demo-banner">DEMO — fictional content. Shapes per TDD §6.5.</div>
+<div class="thread">
+  <div class="thread-head">
+    <h1>🎯 RoleRadar</h1>
+    <div class="sub">dedicated thread · notifications on refresh</div>
+  </div>
+
+  <!-- 1 · RUN BRIEFING -->
+  <div class="day">Friday, 9:00 AM</div>
+  <div class="msg">
+    <div class="t">RoleRadar · 9:00 AM</div>
+    <p class="lead">☀️ Morning briefing — 4 new roles</p>
+    <div class="dv-hero">
+      <div class="dv-tag">◆ DREAM VECTOR</div>
+      <p><span class="score hi">8.8</span><b>Head of Business Development · Union Field Sports</b></p>
+      <p class="ctx">First partnerships hire, reporting to the CRO — via Dana Whitfield (orbit).</p>
+    </div>
+    <div class="rank"><span class="score hi">8.8</span><span><b>Union Field Sports</b> · Head of Business Development<span class="why">First partnerships hire; CRO report.</span></span></div>
+    <div class="rank"><span class="score mid">8.4</span><span><b>Northbeam Analytics</b> · VP Partnerships<span class="why">Platform partnerships, your exact mandate.</span></span></div>
+    <div class="rank"><span class="score mid">7.9</span><span><b>Lakeshore Media Group</b> · Director of Strategic Alliances<span class="why">Media + alliances overlap.</span></span></div>
+    <div class="rank"><span class="score lo">7.6</span><span><b>Harborlight Health</b> · Director of Partnerships<span class="why">Payer partnerships, remote.</span></span></div>
+    <span class="tap">Build the dossier on the Union Field role <span class="arr">→</span></span>
+    <span class="plink"><a href="#">portal ↗</a> · <a href="#">report ↗</a></span>
+  </div>
+  <div class="cap"><b>Run briefing</b> — headline count, dream-vector hero, ranked rows with score chips, one verb-first tap, quiet links.</div>
+
+  <!-- 2 · INTERVIEW -->
+  <div class="day">Tuesday, 2:14 PM</div>
+  <div class="msg">
+    <div class="t">RoleRadar · 2:14 PM · <span class="src">detected from email</span></div>
+    <p class="lead">📅 Interview — VP Partnerships @ Northbeam Analytics</p>
+    <p class="ctx">Round 2 · Marcus Oyelaran (VP Alliances) + Priya Natarajan · Thu 10:30 AM</p>
+    <span class="tap">Get my prep brief <span class="arr">→</span></span>
+    <span class="plink"><a href="#">portal ↗</a></span>
+  </div>
+  <div class="cap"><b>Interview</b> — what, one context line (round · who · when), one tap.</div>
+
+  <!-- 3 · NUDGE -->
+  <div class="day">Wednesday, 11:02 AM</div>
+  <div class="msg">
+    <div class="t">RoleRadar · 11:02 AM</div>
+    <p class="lead">⏰ Nudge — Lakeshore wants an answer by Friday</p>
+    <p class="ctx">Offer sent Monday · $160–185k base vs your $500k floor — below.</p>
+    <span class="tap">Show me the thread <span class="arr">→</span></span>
+    <span class="plink"><a href="#">portal ↗</a></span>
+  </div>
+  <div class="cap"><b>Deadline nudge</b> — who, by when, why it matters, one tap.</div>
+
+  <!-- 4 · OFFER -->
+  <div class="day">Thursday, 4:47 PM</div>
+  <div class="msg">
+    <div class="t">RoleRadar · 4:47 PM · <span class="src">detected from email</span></div>
+    <p class="lead">💰 Offer — Head of Business Development @ Union Field Sports</p>
+    <p class="ctx">$190k base + 20% bonus + equity ≈ $245k TC — <b>below your $500k floor</b>.</p>
+    <span class="tap">Open negotiation brief <span class="arr">→</span></span>
+    <span class="plink"><a href="#">portal ↗</a></span>
+  </div>
+  <div class="cap"><b>Offer</b> — what, one-line walk-away math, one tap.</div>
+
+  <!-- 5 · DOSSIER -->
+  <div class="day">Thursday, 4:47 PM</div>
+  <div class="msg">
+    <div class="t">RoleRadar · 4:47 PM</div>
+    <p class="lead">📄 Dossier ready — Head of Business Development, Union Field Sports</p>
+    <span class="tap">Open dossier <span class="arr">→</span></span>
+    <span class="plink"><a href="#">portal ↗</a></span>
+  </div>
+  <div class="cap"><b>Dossier ready</b> — what, one tap.</div>
+
+  <!-- 6 · QUIET WEEK -->
+  <div class="day">Friday, 9:00 AM</div>
+  <div class="msg">
+    <div class="t">RoleRadar · 9:00 AM</div>
+    <p class="quiet-line">No new qualifying roles this scan.</p>
+  </div>
+  <div class="cap"><b>Quiet week</b> — exactly one line. Never inflate.</div>
+
+  <!-- 7 · REJECTION -->
+  <div class="msg flat">
+    <div class="t">RoleRadar · 9:01 AM</div>
+    <p>Noted — Copperline Foods passed. Logged for outcome learning.</p>
+  </div>
+  <div class="cap"><b>Rejection</b> — one flat line. No pep talk, no fanfare.</div>
+</div>
+</body>
+</html>
