@@ -1,5 +1,7 @@
 # RoleRadar — never miss the role you were meant for
 
+**[See the full pitch page →](https://fairyanna85.github.io/roleradar/README.html)**
+
 A self-improving AI job scan, built with Muse. It hunts roles across company boards,
 keyword searches, your inbox, and the people who post the jobs worth having.
 It scores every match against what *you* care about. Then it gets better at it every week.
