@@ -1,0 +1,6 @@
+# GitHub language detection: the pitch page, portal template, and workbook
+# are documentation/assets, not the project's code — don't count them.
+README.html linguist-documentation=true
+portal-template linguist-documentation=true
+portal-template/** linguist-documentation=true
+*.xlsx linguist-documentation=true
